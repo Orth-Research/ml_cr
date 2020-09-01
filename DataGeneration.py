@@ -2,7 +2,10 @@ import numpy as np
 import pandas as pd
 from scipy import linalg as LA
 from numpy.random import default_rng
-#import ham_cr
+import ham_cr
+
+# generate a complete data set of {cV, \chi_z, M_z} for one set of random Stevens parameters
+# Comment: we could think to make a class that generates a full set of N training data sets (from N random Stevens parameters - then N would be given to the class). Here, the random drawing of Stevens parameters happens outside the class. 
 
 class training_data:
     """
@@ -17,7 +20,9 @@ class training_data:
     Functions: 
     """
 
-    muB_over_kB = 0.671713816
+    # Bohr magneton over Boltzmann constant
+    # Used to transform magnetic field B from unitsof Tesla to units of Kelvin: [muB*B/k_B] = Kelvin with [B] = Tesla
+    muB_over_kB = 0.671713816 
 
     def __init__(self, point_group = 'Oh', N_t = 1, rng_seed = 1, J = 4, L = 5, S = 1, B_directions = [[0,0,1]]):
         self.point_group = point_group
@@ -67,13 +72,13 @@ class training_data:
         """
         # TO DO: implement error messages if range is not correct: in particular, it will get stuck if the range of the x_1, ..., x_{N-1} is not given by [-1,1]
         if self.point_group == 'Oh': # two Stevens parameters for m-3m = Oh point group
-            x0 = range[0][0] + (range[0][1] - range[0][0])*self.rg.random()
+            x0 = (range[0][0] + (range[0][1] - range[0][0])*self.rg.random())*self.rg.choice([-1,1])
             x1 = range[1][0] + (range[1][1] - range[1][0])*self.rg.random()
             stevens_params = np.array([x0, x1])
         elif self.point_group == "C4v": # 5 Stevens parameters for 4mm = C4v point group
             stevens_params = np.array([1.,1.,1.,1.,1., 0.])
             while (np.sum(np.abs(stevens_params)) - np.abs(stevens_params[0]) - np.abs(stevens_params[-1]) > 1):
-                stevens_params[0] = range[0][0] + (range[0][1] - range[0][0])*self.rg.random()
+                stevens_params[0] = (range[0][0] + (range[0][1] - range[0][0])*self.rg.random())*self.rg.choice([-1,1])
                 stevens_params[1] = range[1][0] + (range[1][1] - range[1][0])*self.rg.random()
                 stevens_params[2] = range[2][0] + (range[2][1] - range[2][0])*self.rg.random()
                 stevens_params[3] = range[3][0] + (range[3][1] - range[3][0])*self.rg.random()
@@ -82,7 +87,7 @@ class training_data:
         elif self.point_group == "D3h": # 4 Stevens parameters for -6m2 = D3h point group
             stevens_params = np.array([1.,1.,1.,1., 0.])
             while (np.sum(np.abs(stevens_params)) - np.abs(stevens_params[0]) - np.abs(stevens_params[-1]) > 1):
-                stevens_params[0] = range[0][0] + (range[0][1] - range[0][0])*self.rg.random()
+                stevens_params[0] = (range[0][0] + (range[0][1] - range[0][0])*self.rg.random())*self.rg.choice([-1,1])
                 stevens_params[1] = range[1][0] + (range[1][1] - range[1][0])*self.rg.random()
                 stevens_params[2] = range[2][0] + (range[2][1] - range[2][0])*self.rg.random()
                 stevens_params[3] = range[3][0] + (range[3][1] - range[3][0])*self.rg.random()
@@ -94,12 +99,12 @@ class training_data:
     ####### Define the crystal field Hamiltonian for given point group and J ##########
     def ham_cr(self, stevens_params):
         """
-        Outputs crystal field Hamiltonian 
+        Outputs crystal field Hamiltonian H in units of Kelvin. The units of H are set by the units of x0. We choose the range of x0 (=[1,50] Kelvin) that corresponds to [x0] = Kelvin. 
 
         Parameters: 
-            stevens_params: array of Stevens parameters (check that length is correct)
+            stevens_params: array of Stevens parameters (check that length is correct). x0 has dimensions of energy (we use Kelvin) and x1, x2, ... are dimensionless in interval [-1,1].
         Returns: 
-            ham_cr: crystal field Hamiltonian array
+            ham_cr: crystal field Hamiltonian array 
         """
         if (self.point_group == 'Oh'):  
             if (len(stevens_params) != 2): 
@@ -152,9 +157,9 @@ class training_data:
 
     ####### Calculate specific heat ##################################
 
-    def specific_heat(self, ham, T_min=1, T_max=300, T_steps=150):
+    def specific_heat(self, ham, T_min=2, T_max=300, T_steps=150):
         """
-        Returns array of specific heat over temperature range [T_min, T_max] for hamiltonian matrix ham
+        Returns array of cV/kB for a single rare-earth ion over temperature range [T_min, T_max] for hamiltonian matrix ham. Note that [cV/kB] is dimensionless. To get the specific heat, multiply the result with the Boltzmann constant kB. 
 
         Parameters: 
             ham : hermitian Hamiltonian matrix, typically of crystal field Hamiltonian (dimension 2*J+1)
@@ -163,7 +168,7 @@ class training_data:
             T_steps: total number of steps in temperature range
 
         Returns: 
-            cV_array: specific heat array of dimension (T_steps, 2) containing (T_i, specific_heat(T_i) ), where T_i is temperature at step i 
+            cV_array: cV/kB for a single rare-earth ion. Array of dimension (T_steps, 2) containing (T_i, cV/kB(T_i) ),             where T_i is temperature at step i 
 
         """  
         T = np.linspace(T_min, T_max, T_steps) # linearly spaced temperatures
@@ -189,9 +194,9 @@ class training_data:
 
     ######### Calculate magnetization ##############################
 
-    def magnetization(self, ham_cr, B_direction, B_min=0, B_max=10, B_steps=20, T_min=1, T_max=300, T_steps=4):
+    def magnetization(self, ham_cr, B_direction, B_min=0, B_max=10, B_steps=20, T_min=2, T_max=300, T_steps=4):
         """
-        Returns array of magnetization over temperature and magnetic field range [T_min, T_max] and [B_min, B_max] for a system with zero-field Hamiltonian matrix ham_cr. The magnetic field is along B_direction (x, y, z).  
+        Returns array of moment per R-ion mu/mu_B (over mu_B) over temperature and magnetic field range [T_min, T_max] and [B_min, B_max] for a system with zero-field Hamiltonian matrix ham_cr. Note mu/mu_B is dimensionless. The magnetic field is along B_direction (x, y, z).  
         Parameters: 
             ham_cr : hermitian Hamiltonian matrix in zero field, typically of crystal field Hamiltonian (dimension 2*J+1)
             B_direction: (B_x, B_y, B_z) triple denoting the field direction in real space
@@ -203,7 +208,7 @@ class training_data:
             T_steps: total number of steps in temperature range
 
         Returns: 
-            mag_array: magnetization/(gJLS*muB) array of dimension (T_steps, B_steps, 2) containing (T_i, B_i, specific_heat(T_i) ), where T_i (B_i) is temperature (field) at step i 
+            mag_array: induced moment on R-ion mu/muB in array of dimension (T_steps, B_steps, 2) containing (B_i, T_i, mag(B_i, T_i) ), where T_i (B_i) is temperature (field) at step i. Note that this differs by a factor of gJLS from a previous version of the function. 
 
         """  
         gJLS = float(self.gJLS())
@@ -217,7 +222,6 @@ class training_data:
         mag_array = np.zeros((len(B_array), len(T_array), 3))
 
         # this can probably be optimized using numpy ufuncs, but it is ok for now
-        
         for B_idx in np.arange(0, len(B_array)):
             B = B_array[B_idx]
             ham = ham_cr - gJLS*self.muB_over_kB*J_op*B
@@ -227,7 +231,8 @@ class training_data:
             for T_idx in range(0, len(T_array)):
                 T = T_array[T_idx]
                 ZB = np.sum(np.exp(-energies/T))
-                mag = 1/ZB*np.sum([np.dot(np.conjugate(eigenstates[:,i]), np.dot(J_op, eigenstates)[:, i])*np.exp(-energies[i]/T) for i in range(0, len(energies))])
+                # mag = \mu/\mu_B is moment per R-ion over Bohr magneton. mag is dimensionless. 
+                mag = gJLS/ZB*np.sum([np.dot(np.conjugate(eigenstates[:,i]), np.dot(J_op, eigenstates)[:, i])*np.exp(-energies[i]/T) for i in range(0, len(energies))])
     
                 mag_array[B_idx][T_idx][0] = B_array[B_idx]
                 mag_array[B_idx][T_idx][1] = T_array[T_idx]
@@ -237,9 +242,9 @@ class training_data:
     
     ########### Calculate magnetic susceptibility ############################
     
-    def susceptibility(self, ham_cr, B_direction, B=0.001, T_min=1, T_max=300, T_steps=300):
+    def susceptibility(self, ham_cr, B_direction, B=0.0001, T_min=1, T_max=300, T_steps=300):
         """
-        Calculated and returns magnetic susceptibility chi_a = M/B in direction a=B_direction over temperature range [T_min, T_max] for zero-field Hamiltonian matrix ham_cr.
+        Calculated and returns magnetic susceptibility chi_a = mu/(mu_B*B) (units of 1/T) over temperature range [T_min, T_max] for zero-field Hamiltonian matrix ham_cr. Here, mu is the induced moment on the R-ion, mu_B is the Bohr magneton and B the magnetic field. The direction is a=B_direction .
         Parameters: 
             ham_cr : hermitian Hamiltonian matrix in zero field, typically a crystal field Hamiltonian (dimension 2*J+1)
             B_direction: (B_x, B_y, B_z) triple denoting the field direction in real space
@@ -249,7 +254,7 @@ class training_data:
             T_steps: total number of steps in temperature range
             
         Returns: 
-            susc_array: susceptbility/(gJLS*muB) array of dimension (T_steps, 2) containing (T_i, susceptibility(T_i)/(gJLS*muB) ), where T_i is temperature at step i.  
+            susc_array: array of dimension (T_steps, 2) containing (T_i, mu(T_i)/(muB*B), where T_i is temperature at step i and mu(T_i)/mu_B = mag(T_i) is the field induced moment on the R-ion. Note that this differs by a factor of gJLS from a previous version of the function. 
 
         """  
         gJLS = float(self.gJLS())
@@ -262,6 +267,7 @@ class training_data:
         susc_array = np.zeros((len(T_array), 2))
 
         # this can probably be optimized using numpy ufuncs, but it is ok for now  
+        # B is given in units of T, ham is in units of K.
         ham = ham_cr - gJLS*self.muB_over_kB*J_op*B
         energies, eigenstates = LA.eigh(ham)
         energies = energies - energies[0]
@@ -269,10 +275,12 @@ class training_data:
         for T_idx in range(0, len(T_array)):
                 T = T_array[T_idx]
                 ZB = np.sum(np.exp(-energies/T))
-                mag = 1/ZB*np.sum([np.dot(np.conjugate(eigenstates[:,i]), np.dot(J_op, eigenstates)[:, i])*np.exp(-energies[i]/T) for i in range(0, len(energies))])
+                # mag = mu/mu_B, where \mu is the field induced moment on the R-ion
+                mag = gJLS/ZB*np.sum([np.dot(np.conjugate(eigenstates[:,i]), np.dot(J_op, eigenstates)[:, i])*np.exp(-energies[i]/T) for i in range(0, len(energies))])
 
                 susc_array[T_idx][0] = T_array[T_idx]
-                susc_array[T_idx][1] = mag/B
+                # susc = mag/B = \mu/(\mu_B B) has units of 1/T
+                susc_array[T_idx][1] = mag/B 
 
         return susc_array
 
@@ -282,8 +290,17 @@ class training_data:
         """
         Write training data to file
         Parameters: 
+            Stevens_range: array of ranges for Stevens parameters [[x0_min, x0_max], [x1_min, x1_max], ...] 
+        Optional parameters: 
             cV_T_range: [T_min, T_max, T_steps] array for specific heat calculation
+            susc_T_range: [T_min, T_max, T_steps] array for susceptibility calculation
+            mag_T_range: [T_min, T_max, T_steps] array for magnetization calculation
+            mag_B_range: [B_min, B_max, B_steps], where B_steps is the number of B points within range [B_min, B_max]
         Returns: 
+            stevens_params_all: array with parameter values of Stevens parameters
+            cV_data_all: array with specific heat values
+            susc_data_all: array with susceptibility values
+            mag_data_all: array with magnetization values
 
         """
         stevens_params_all = [] 
@@ -291,9 +308,6 @@ class training_data:
         susc_data_all = []
         mag_data_all = []
         for N_t_idx in range(0, self.N_t):
-            if (N_t_idx % 1000 == 0):
-                print('.', end='')
-                
             stevens_params = self.generate_random_stevens(Stevens_range) # draw random Stevens parameters
             stevens_params_all.append(stevens_params) # use a list to store all Stevens parameters. Since different point groups have different number of Stevens parameters, the tuples that are stored have different length. 
             ham_cr = self.ham_cr(stevens_params) # crystal field Hamiltonian for given random Stevens parameters
@@ -309,7 +323,7 @@ class training_data:
             
             for B_direction_idx in range (0, B_direction_steps):
                 B_direction = self.B_directions[B_direction_idx]
-                susc_array = self.susceptibility(ham_cr, B_direction, B = 0.001, T_min = susc_T_range[0], T_max = susc_T_range[1], T_steps = susc_T_range[2])
+                susc_array = self.susceptibility(ham_cr, B_direction, B = 0.0001, T_min = susc_T_range[0], T_max = susc_T_range[1], T_steps = susc_T_range[2])
                 mag_array = self.magnetization(ham_cr, B_direction, B_min = mag_B_range[0], B_max = mag_B_range[1], B_steps = mag_B_range[2], T_min = mag_T_range[0], T_max = mag_T_range[1], T_steps = mag_T_range[2])
 
                 for T_idx in range (0, len(susc_array)):
@@ -333,11 +347,11 @@ if __name__=='__main__':
 	L = 6
 	S = 3/2
 	pg = 'C4v'
-	B_directions=[[0,0,1],[1,0,0]]
+	B_directions=[[1,0,0],[0,0,1]]
 	Stevens_range = [[1, 50],[-1,1],[-1,1],[-1,1],[-1,1]]
-
+	# 123 seed
 	td = training_data(pg, num_training_examples, 123, J, L, S, B_directions)
-	out = td.output_all_data(Stevens_range=Stevens_range, cV_T_range = [1, 300, 64], susc_T_range = [1, 300, 64], mag_T_range = [1, 300, 3], mag_B_range = [0.5, 10, 64])
+	out = td.output_all_data(Stevens_range=Stevens_range, cV_T_range = [2, 20, 64], susc_T_range = [2, 300, 64], mag_T_range = [2, 2, 1], mag_B_range = [0, 5.5, 64])
 	#out[0] # Stevens parameters
 	#out[1] # specific heat [[T_i, cV^(0)_i], [T_i, cV^(1)_i], ..., [T_i, cV^(N_t-1)_i] ], i = 1, ..., T_steps
 	#out[2] # susceptibility [[T_i, susc^(0)_{0,i}, susc^{(0)_{1,i}, ..., susc^(0)_{B_direction-1,i}}], ...], i = 1, ..., T_steps
@@ -347,7 +361,7 @@ if __name__=='__main__':
 	data_arr = np.array(out[1])[:,:,1]
 	for i in range(len(B_directions)): # size of B_directions
 		data_arr = np.concatenate([data_arr, np.array(out[2])[:,:,i+1]], axis=1)
-	for i in range(3): # T step for magnetization
+	for i in range(1): # T step for magnetization
 		for j in range(len(B_directions)): # size of B_directions
 			data_arr = np.concatenate([data_arr, np.array(out[3])[:,:,i,j+2]], axis=1)
 	data_df = pd.DataFrame(data_arr)
