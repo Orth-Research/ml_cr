@@ -60,7 +60,7 @@ class training_data:
 
     ####### Draw random Stevens paramaters #######################################
 
-    def generate_random_stevens(self, range):
+    def generate_random_stevens(self, range, W_sign):
         """
         Generated random values for Stevens parameters for given point group. 
 
@@ -72,13 +72,13 @@ class training_data:
         """
         # TO DO: implement error messages if range is not correct: in particular, it will get stuck if the range of the x_1, ..., x_{N-1} is not given by [-1,1]
         if self.point_group == 'Oh': # two Stevens parameters for m-3m = Oh point group
-            x0 = (range[0][0] + (range[0][1] - range[0][0])*self.rg.random())*self.rg.choice([-1,1])
+            x0 = (range[0][0] + (range[0][1] - range[0][0])*self.rg.random())*W_sign
             x1 = range[1][0] + (range[1][1] - range[1][0])*self.rg.random()
             stevens_params = np.array([x0, x1])
         elif self.point_group == "C4v": # 5 Stevens parameters for 4mm = C4v point group
             stevens_params = np.array([1.,1.,1.,1.,1., 0.])
             while (np.sum(np.abs(stevens_params)) - np.abs(stevens_params[0]) - np.abs(stevens_params[-1]) > 1):
-                stevens_params[0] = (range[0][0] + (range[0][1] - range[0][0])*self.rg.random())*self.rg.choice([-1,1])
+                stevens_params[0] = (range[0][0] + (range[0][1] - range[0][0])*self.rg.random())*W_sign
                 stevens_params[1] = range[1][0] + (range[1][1] - range[1][0])*self.rg.random()
                 stevens_params[2] = range[2][0] + (range[2][1] - range[2][0])*self.rg.random()
                 stevens_params[3] = range[3][0] + (range[3][1] - range[3][0])*self.rg.random()
@@ -87,7 +87,7 @@ class training_data:
         elif self.point_group == "D3h": # 4 Stevens parameters for -6m2 = D3h point group
             stevens_params = np.array([1.,1.,1.,1., 0.])
             while (np.sum(np.abs(stevens_params)) - np.abs(stevens_params[0]) - np.abs(stevens_params[-1]) > 1):
-                stevens_params[0] = (range[0][0] + (range[0][1] - range[0][0])*self.rg.random())*self.rg.choice([-1,1])
+                stevens_params[0] = (range[0][0] + (range[0][1] - range[0][0])*self.rg.random())*W_sign
                 stevens_params[1] = range[1][0] + (range[1][1] - range[1][0])*self.rg.random()
                 stevens_params[2] = range[2][0] + (range[2][1] - range[2][0])*self.rg.random()
                 stevens_params[3] = range[3][0] + (range[3][1] - range[3][0])*self.rg.random()
@@ -286,11 +286,12 @@ class training_data:
 
     ######## Output training data into files #################
 
-    def output_all_data(self, Stevens_range, cV_T_range = [1, 300, 100], susc_T_range = [1, 300, 100], mag_T_range = [1, 300, 4], mag_B_range = [0.5, 10, 20]):
+    def output_all_data(self, Stevens_range, W_sign, cV_T_range = [1, 300, 100], susc_T_range = [1, 300, 100], mag_T_range = [1, 300, 4], mag_B_range = [0.5, 10, 20]):
         """
         Write training data to file
         Parameters: 
             Stevens_range: array of ranges for Stevens parameters [[x0_min, x0_max], [x1_min, x1_max], ...] 
+	    W_sign: sign of W for Stevens parameters
         Optional parameters: 
             cV_T_range: [T_min, T_max, T_steps] array for specific heat calculation
             susc_T_range: [T_min, T_max, T_steps] array for susceptibility calculation
@@ -308,7 +309,7 @@ class training_data:
         susc_data_all = []
         mag_data_all = []
         for N_t_idx in range(0, self.N_t):
-            stevens_params = self.generate_random_stevens(Stevens_range) # draw random Stevens parameters
+            stevens_params = self.generate_random_stevens(Stevens_range, W_sign) # draw random Stevens parameters
             stevens_params_all.append(stevens_params) # use a list to store all Stevens parameters. Since different point groups have different number of Stevens parameters, the tuples that are stored have different length. 
             ham_cr = self.ham_cr(stevens_params) # crystal field Hamiltonian for given random Stevens parameters
 
@@ -342,30 +343,34 @@ class training_data:
         return stevens_params_all, cV_data_all, susc_data_all, mag_data_all
 		
 if __name__=='__main__':
-	num_training_examples = 1
-	J = 15/2
-	L = 6
-	S = 3/2
-	pg = 'C4v'
-	B_directions=[[1,0,0],[0,0,1]]
-	Stevens_range = [[1, 50],[-1,1],[-1,1],[-1,1],[-1,1]]
-	# 123 seed
-	td = training_data(pg, num_training_examples, 123, J, L, S, B_directions)
-	out = td.output_all_data(Stevens_range=Stevens_range, cV_T_range = [2, 20, 64], susc_T_range = [2, 300, 64], mag_T_range = [2, 2, 1], mag_B_range = [0, 5.5, 64])
-	#out[0] # Stevens parameters
-	#out[1] # specific heat [[T_i, cV^(0)_i], [T_i, cV^(1)_i], ..., [T_i, cV^(N_t-1)_i] ], i = 1, ..., T_steps
-	#out[2] # susceptibility [[T_i, susc^(0)_{0,i}, susc^{(0)_{1,i}, ..., susc^(0)_{B_direction-1,i}}], ...], i = 1, ..., T_steps
-	#out[3] # magnetization [[[B_j, T_i, M^(0),{0,i}, M^(0)_{1,i,j}, ..., M^(0)_{B_direction-1,i,j}], ... ]], j = 1, .., B_steps; i = 1, ..., T_steps
+	num_training_examples = [1000, 2000, 30000, 100000]
+	for ex in num_training_examples:
+		J = 15/1 #4 #15/2
+		L = 6 #5 #6
+		S = 3/2 #1 #3/2
+		pg = 'C4v'
+		B_directions= [[1,0,0],[0,0,1]] #[[1,1,1]]
+		B_temps = 3
+		W_sign = -1
+		Stevens_range = [[0.5, 50],[-1,1],[-1,1],[-1,1],[-1,1]]
+		# 124 seed for positive
+		# 122 seed for negative
+		td = training_data(pg, ex, 123+W_sign, J, L, S, B_directions)
+		out = td.output_all_data(Stevens_range=Stevens_range, W_sign=W_sign, cV_T_range = [1, 300, 64], susc_T_range = [1, 300, 64], mag_T_range = [1, 300, B_temps], mag_B_range = [0, 10, 64])
+		#out[0] # Stevens parameters
+		#out[1] # specific heat [[T_i, cV^(0)_i], [T_i, cV^(1)_i], ..., [T_i, cV^(N_t-1)_i] ], i = 1, ..., T_steps
+		#out[2] # susceptibility [[T_i, susc^(0)_{0,i}, susc^{(0)_{1,i}, ..., susc^(0)_{B_direction-1,i}}], ...], i = 1, ..., T_steps
+		#out[3] # magnetization [[[B_j, T_i, M^(0),{0,i}, M^(0)_{1,i,j}, ..., M^(0)_{B_direction-1,i,j}], ... ]], j = 1, .., B_steps; i = 1, ..., T_steps
 	
-	targets_df = pd.DataFrame(out[0])
-	data_arr = np.array(out[1])[:,:,1]
-	for i in range(len(B_directions)): # size of B_directions
-		data_arr = np.concatenate([data_arr, np.array(out[2])[:,:,i+1]], axis=1)
-	for i in range(1): # T step for magnetization
-		for j in range(len(B_directions)): # size of B_directions
-			data_arr = np.concatenate([data_arr, np.array(out[3])[:,:,i,j+2]], axis=1)
-	data_df = pd.DataFrame(data_arr)
-	targets_df.to_csv('TrainingData_{}_{}/generated_targets_{}.csv'.format(pg, J, num_training_examples), header=None, index=None)
-	data_df.to_csv('TrainingData_{}_{}/generated_data_{}.csv'.format(pg, J, num_training_examples), header=None, index=None)
+		targets_df = pd.DataFrame(out[0])
+		data_arr = np.array(out[1])[:,:,1]
+		for i in range(len(B_directions)): # size of B_directions
+			data_arr = np.concatenate([data_arr, np.array(out[2])[:,:,i+1]], axis=1)
+		for i in range(B_temps): # T step for magnetization
+			for j in range(len(B_directions)): # size of B_directions
+				data_arr = np.concatenate([data_arr, np.array(out[3])[:,:,i,j+2]], axis=1)
+		data_df = pd.DataFrame(data_arr)
+		targets_df.to_csv('TrainingData_{}_{}/TrainingData_{}_{}_{}/generated_targets_{}.csv'.format(pg, J, pg, J, W_sign, ex), header=None, index=None)
+		data_df.to_csv('TrainingData_{}_{}/TrainingData_{}_{}_{}/generated_data_{}.csv'.format(pg, J, pg, J, W_sign, ex), header=None, index=None)
 
 	

@@ -5,11 +5,10 @@ from keras import layers
 from keras.layers import BatchNormalization
 from keras.layers import Dropout
 
+import tensorflow as tf
 import numpy as np
 import pandas as pd
 import pywt
-import seaborn as sns
-import matplotlib.pyplot as plt
 from sklearn import metrics
 from sklearn.metrics import classification_report
 
@@ -29,7 +28,7 @@ def cwt(data, channels=6, wavelet='morl'):
     """
     shape = data.shape[1]//channels
     size = data.shape[0]
-    scales = np.arange(1, shape+1)
+    scales = np.linspace(1, 200, shape)
 
     data_cwt = np.ndarray(shape=(size, shape, shape, channels), dtype=np.float16)
     for i in range(size):
@@ -56,14 +55,17 @@ def build_model(channels, outputs):
     """
 	model = models.Sequential()
 
-	model.add(layers.Conv2D(64, (3, 3), activation='relu', input_shape=(64, 64, channels)))
+	model.add(layers.Conv2D(96, (3, 3), activation='relu', input_shape=(64, 64, channels)))
+	model.add(layers.Conv2D(96, (3, 3), activation='relu'))
 	model.add(layers.BatchNormalization())
 	model.add(layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
 
-	model.add(layers.Conv2D(128, (3, 3), activation='relu'))
+	model.add(layers.Conv2D(256, (3, 3), activation='relu'))
+	model.add(layers.Conv2D(256, (3, 3), activation='relu'))
 	model.add(layers.BatchNormalization())
 	model.add(layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
 
+	model.add(layers.Conv2D(64, (3, 3), activation='relu'))
 	model.add(layers.Conv2D(64, (3, 3), activation='relu'))
 	model.add(layers.BatchNormalization())
 	model.add(layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
@@ -78,15 +80,22 @@ def build_model(channels, outputs):
 	model.add(Dropout(0.3))
 
 	model.add(layers.Dense(outputs))
-	
+	model.summary()
+	print(model.summary())	
 	model.compile(optimizer='adam', loss='mse', metrics=['mae'])
 	return model
+
+class new_callback(tf.keras.callbacks.Callback):
+	def on_epoch_end(self, epoch, logs={}):
+		if (logs.get('val_mae')<0.26):
+			self.model.stop_training = True
 	
 if __name__=='__main__':
-	group = 'Oh'
+	group = 'D3h'
 	J = '4'
+	W_sign = -1
 	
-	dir = '/TrainingData_{}_{}/'.format(group, J)
+	dir = './TrainingData_{}_{}/TrainingData_{}_{}_{}/'.format(group, J, group, J, W_sign)
 	data = dir + 'generated_data_{}.csv'
 	targets = dir + 'generated_targets_{}.csv'
 	
@@ -116,43 +125,46 @@ if __name__=='__main__':
 	y_test /= y_std
 	
 	model = build_model(x_train.shape[3], len(y_train[0]))
+	callbacks = new_callback()
+
 	history = model.fit(x_train,
 		y_train,
-		epochs=10,
-		batch_size=256,
+		epochs=100,
+		batch_size=64,
 		validation_data=(x_val, y_val),
-		verbose=2)
+		verbose=2,
+                callbacks=[callbacks])
 		
 		
-	y_real = np.array(pd.read_csv(dir + targets.format(1000), header=None))
-	x_real = np.array(pd.read_csv(dir + data.format(1000), header=None))
+	y_real = np.array(pd.read_csv(targets.format(1000), header=None))
+	x_real = np.array(pd.read_csv(data.format(1000), header=None))
 	
-	x_real = cwt(x_real, channels=channels)
+	x_real = cwt(x_real, channels=x_train.shape[3])
 	x_real -= x_mean
 	y_pred = model.predict(x_real)
 	y_pred = (y_pred * y_std) + y_mean
 	
 	with open(dir + 'results_{}_{}.txt'.format(group, J), 'w') as text_file:
-		#print(model.summary(), file=text_file)
+		print(model.summary(), file=text_file)
 		
 		print(model.evaluate(x_test, y_test, verbose=0), file=text_file)
 		
 		if (group == 'Oh'):
 			num_coeff = len(y_pred[0])
 		else:
-			num_coeff = len(y_pred[0])-1
-			
+			num_coeff = len(y_pred[0])-1		
+
 		for i in range(num_coeff):
 			print('Mean absolute error: {}'.format(metrics.mean_absolute_error(y_real[:,i], y_pred[:,i])), file=text_file)
 			print('Mean squared error: {}'.format(metrics.mean_squared_error(y_real[:,i], y_pred[:,i])), file=text_file)
 			print('Explained varience score: {}'.format(metrics.explained_variance_score(y_real[:,i], y_pred[:,i])), file=text_file)
 			print('r^2 score: {}'.format(metrics.r2_score(y_real[:,i], y_pred[:,i])), file=text_file)
 			print('', file=text_file)
-			
+		
 		if (group != 'Oh'):
 			last_real = [0 if i < 0 else 1 for i in y_real[:,len(y_pred[0])-1]]
 			last_pred = [0 if i < 0 else 1 for i in y_pred[:,len(y_pred[0])-1]]
 			report = classification_report(last_real, last_pred)
 			print(report, file=text_file)	
 	
-	model.save(dir + '{}_{}_model.h5'.format(group, J))
+	model.save(dir + '{}_{}_{}_model.h5'.format(group, J, W_sign))

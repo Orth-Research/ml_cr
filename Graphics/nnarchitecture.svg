@@ -86,9 +86,9 @@
      inkscape:window-maximized="1"
      inkscape:window-y="-8"
      inkscape:window-x="-8"
-     inkscape:cy="488.93351"
-     inkscape:cx="1493.6227"
-     inkscape:zoom="1.4202315"
+     inkscape:cy="334.16319"
+     inkscape:cx="1181.3995"
+     inkscape:zoom="0.71011575"
      showgrid="false"
      id="namedview244"
      inkscape:window-height="1002"
@@ -139,10 +139,10 @@
            height="137.92607"
            width="76.981995"
            id="rect1392" /></flowRegion><flowPara
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold'"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype';"
          id="flowPara1394">x<flowSpan
    id="flowSpan1400"
-   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:65%;font-family:Arial;-inkscape-font-specification:'Arial Bold';baseline-shift:sub">0</flowSpan></flowPara><flowPara
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:65%;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype';baseline-shift:sub;">0</flowSpan></flowPara><flowPara
          id="flowPara1025"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold'" /><flowPara
          id="flowPara1031"
@@ -151,25 +151,28 @@
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
-       transform="rotate(180,638.38511,275.79697)"
-       style="font-style:normal;font-weight:normal;font-size:24px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:vertical-lr;direction:ltr;text-orientation:sideways;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       transform="rotate(180,656.38511,275.79697)"
+       style="font-style:normal;font-weight:normal;font-size:29.3333px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:vertical-lr;direction:ltr;text-orientation:sideways;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        id="flowRoot1602-3"
        xml:space="preserve"><flowRegion
          style="text-align:center;writing-mode:vertical-lr;direction:ltr;text-orientation:sideways;text-anchor:middle"
          id="flowRegion1604-3"><rect
-           style="text-align:center;writing-mode:vertical-lr;direction:ltr;text-orientation:sideways;text-anchor:middle"
+           style="text-align:center;writing-mode:vertical-lr;direction:ltr;text-orientation:sideways;text-anchor:middle;"
            y="369.50845"
            x="471.51471"
-           height="317.77988"
-           width="56.361801"
+           height="319.77139"
+           width="107.14571"
            id="rect1606-2" /></flowRegion><flowPara
-         id="flowPara1608-9">Stevens coefficients</flowPara></flowRoot>
+         style="font-size:29.3333px;-inkscape-font-specification:'Palatino Linotype';font-family:'Palatino Linotype';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;"
+         id="flowPara1404">Stevens coefficients</flowPara><flowPara
+         style="font-size:29.3333px;-inkscape-font-specification:'Palatino Linotype';font-family:'Palatino Linotype';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;"
+         id="flowPara1408">Output</flowPara></flowRoot>
     <flowRoot
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
-       transform="translate(-432.168,-376.57318)"
-       style="font-style:normal;font-weight:normal;font-size:24px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       transform="translate(-452.168,-376.61976)"
+       style="font-style:normal;font-weight:normal;font-size:29.3333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        id="flowRoot1825-6"
        xml:space="preserve"><flowRegion
          id="flowRegion1827-5"><rect
@@ -178,14 +181,14 @@
            height="41.473896"
            width="496.39072"
            id="rect1829-8" /></flowRegion><flowPara
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.3333px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype';"
          id="flowPara1831-2">Fully-connected</flowPara></flowRoot>
     <flowRoot
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
-       transform="translate(-892.46806,-376.4197)"
-       style="font-style:normal;font-weight:normal;font-size:24px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       transform="translate(-936.46806,-376.26168)"
+       style="font-style:normal;font-weight:normal;font-size:29.3333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        id="flowRoot1825"
        xml:space="preserve"><flowRegion
          id="flowRegion1827"><rect
@@ -194,127 +197,136 @@
            height="41.473896"
            width="496.39072"
            id="rect1829" /></flowRegion><flowPara
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.3333px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype';"
          id="flowPara1831">Convolution and max pooling</flowPara></flowRoot>
     <text
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
        id="text1408-1-9-5"
-       y="189.31683"
-       x="379.23868"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       y="191.31683"
+       x="375.23868"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
-         y="189.31683"
-         x="379.23868"
+         y="191.31683"
+         x="375.23868"
          id="tspan1406-8-8-5"
-         sodipodi:role="line">4096</tspan></text>
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype'">4096</tspan></text>
     <text
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
        id="text1408-1-9-5-7"
-       y="184.33804"
-       x="484.60806"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       y="186.33804"
+       x="480.60806"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
-         y="184.33804"
-         x="484.60806"
+         y="186.33804"
+         x="480.60806"
          id="tspan1406-8-8-5-9"
-         sodipodi:role="line">2048</tspan></text>
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype'">2048</tspan></text>
     <text
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
        id="text1408-1-9-5-7-1"
-       y="76.403229"
-       x="602.30774"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       y="104.40323"
+       x="592.30774"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
-         y="76.403229"
-         x="602.30774"
+         y="104.40323"
+         x="592.30774"
          id="tspan1406-8-8-5-9-6"
-         sodipodi:role="line">N<tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype'">N<tspan
    id="tspan1023"
-   style="font-size:65%;baseline-shift:sub">S</tspan></tspan></text>
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype';baseline-shift:sub">St</tspan></tspan></text>
     <text
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
        id="text1408-7-0-4-8"
-       y="93.698212"
+       y="97.698212"
        x="-2.3400471"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
-         y="93.698212"
+         y="97.698212"
          x="-2.3400471"
          id="tspan1406-4-9-2-7"
-         sodipodi:role="line">256</tspan></text>
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype'">256</tspan></text>
     <text
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
        id="text1408-7-0-4"
-       y="89.723633"
+       y="93.723633"
        x="220.63792"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
-         y="89.723633"
+         y="93.723633"
          x="220.63792"
          id="tspan1406-4-9-2"
-         sodipodi:role="line">64</tspan></text>
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype'">64</tspan></text>
     <text
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
        id="text1408-7-0-4-9"
-       y="96.204559"
+       y="98.204559"
        x="-201.06758"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
-         y="96.204559"
+         y="98.204559"
          x="-201.06758"
          id="tspan1406-4-9-2-1"
-         sodipodi:role="line">96</tspan></text>
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype'">96</tspan></text>
     <text
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
        id="text1408-1-9-1"
-       y="25.264925"
-       x="144.0229"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       y="29.264925"
+       x="140.0229"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
-         y="25.264925"
-         x="144.0229"
+         y="29.264925"
+         x="140.0229"
          id="tspan1406-8-8-6"
-         sodipodi:role="line">16</tspan></text>
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype'">16</tspan></text>
     <text
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
        id="text1408-1-9-1-2"
        y="-29.75095"
-       x="149.99742"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       x="147.99742"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
          y="-29.75095"
-         x="149.99742"
+         x="147.99742"
          id="tspan1406-8-8-6-3"
-         sodipodi:role="line">16</tspan></text>
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype'">16</tspan></text>
     <text
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
        id="text1408-1"
        y="12.564434"
-       x="-76.348274"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       x="-78.348274"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
          y="12.564434"
-         x="-76.348274"
+         x="-78.348274"
          id="tspan1406-8"
-         sodipodi:role="line">32</tspan></text>
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype'">32</tspan></text>
     <text
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
@@ -322,12 +334,13 @@
        id="text1408-1-4"
        y="-57.636852"
        x="-68.382217"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
          y="-57.636852"
          x="-68.382217"
          id="tspan1406-8-2"
-         sodipodi:role="line">32</tspan></text>
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype'">32</tspan></text>
     <image
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
@@ -374,8 +387,8 @@
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
-       transform="rotate(180,-7.2534275,252.57022)"
-       style="font-style:normal;font-weight:normal;font-size:24px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:vertical-lr;direction:ltr;text-orientation:sideways;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       transform="rotate(180,-2.2534275,280.57022)"
+       style="font-style:normal;font-weight:normal;font-size:29.3333px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:vertical-lr;direction:ltr;text-orientation:sideways;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        id="flowRoot1602"
        xml:space="preserve"><flowRegion
          style="text-align:center;writing-mode:vertical-lr;direction:ltr;text-orientation:sideways;text-anchor:middle"
@@ -383,10 +396,11 @@
            style="text-align:center;writing-mode:vertical-lr;direction:ltr;text-orientation:sideways;text-anchor:middle"
            y="369.50845"
            x="471.51471"
-           height="242.95363"
-           width="45.137238"
+           height="350.49597"
+           width="114.84068"
            id="rect1606" /></flowRegion><flowPara
-         id="flowPara1608">Input scaleograms</flowPara></flowRoot>
+         style="font-size:29.3333px;-inkscape-font-specification:'Palatino Linotype';font-family:'Palatino Linotype';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;"
+         id="flowPara1438">Input scaleograms</flowPara></flowRoot>
     <image
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
@@ -439,33 +453,35 @@
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
        id="text1408"
        y="-78.46991"
-       x="-262.46152"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       x="-264.46152"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
          y="-78.46991"
-         x="-262.46152"
+         x="-264.46152"
          id="tspan1406"
-         sodipodi:role="line">64</tspan></text>
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype'">64</tspan></text>
     <text
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
        id="text1408-7"
        y="-3.420505"
-       x="-273.84604"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.6667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       x="-277.84604"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        xml:space="preserve"><tspan
          y="-3.420505"
-         x="-273.84604"
+         x="-277.84604"
          id="tspan1406-4"
-         sodipodi:role="line">64</tspan></text>
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype'">64</tspan></text>
     <path
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
        inkscape:connector-curvature="0"
        id="path2166"
-       d="m -240.63542,-89.514664 c 26.59718,-8.109798 26.59718,-8.109798 26.59718,-8.109798"
+       d="m -237.27589,-90.715949 c 23.22264,-6.939421 23.22264,-6.939421 23.22264,-6.939421"
        style="display:inline;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:6, 6;stroke-dashoffset:0;stroke-opacity:1" />
     <flowRoot
        xml:space="preserve"
@@ -484,9 +500,9 @@
            y="165.59781"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;baseline-shift:baseline" /></flowRegion><flowPara
          id="flowPara1394-8"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold'">x<flowSpan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype';">x<flowSpan
    id="flowSpan1066"
-   style="font-size:65%;baseline-shift:sub">1</flowSpan></flowPara><flowPara
+   style="font-size:65%;baseline-shift:sub;-inkscape-font-specification:'Palatino Linotype';font-family:'Palatino Linotype';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">1</flowSpan></flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold'"
          id="flowPara1025-4" /><flowPara
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold'"
@@ -507,12 +523,12 @@
            height="137.42818"
            width="123.78291"
            id="rect1392-0-5" /></flowRegion><flowPara
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold'"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype';"
          id="flowPara1394-8-4">x<flowSpan
    id="flowSpan1137"
-   style="font-size:24px;baseline-shift:sub">N<flowSpan
+   style="font-size:24px;baseline-shift:sub;-inkscape-font-specification:'Palatino Linotype';font-family:'Palatino Linotype';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">N<flowSpan
    id="flowSpan1155"
-   style="font-size:16px">S</flowSpan></flowSpan></flowPara><flowPara
+   style="font-size:16px;-inkscape-font-specification:'Palatino Linotype';font-family:'Palatino Linotype';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">St</flowSpan></flowSpan></flowPara><flowPara
          id="flowPara1025-4-6"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold'" /><flowPara
          id="flowPara1031-4-2"
@@ -1258,30 +1274,26 @@
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
-       id="path208"
-       style="background-color:rgb(255, 255, 255);fill:none;stroke:rgb(0, 0, 0);stroke-width:1;stroke-linecap:round"
-       d="M628.5282315627744,47.2717573470922L606.1193328365244,45.88240439682261M606.1193328365244,23.45861271207311L606.1193328365244,45.88240439682261M606.1193328365244,45.88240439682261L600.4219691252247,51.3470141944838" />
-    <path
-       inkscape:export-ydpi="185.7"
-       inkscape:export-xdpi="185.7"
-       inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
        id="path210"
-       style="background-color:rgb(255, 255, 255);fill:rgb(238, 238, 238);fill-opacity:0.4"
-       d="M387.4922955242734,-107.60927702951778L409.9011942505233,-106.2199240792482L393.1896592355731,-113.073886827179zM628.5282315627743,47.2717573470922L606.1193328365244,45.8824043968226L606.1193328365244,23.4586127120731z" />
+       style="fill:#eeeeee;fill-opacity:0.4"
+       d="m 387.4923,-107.60928 22.40889,1.38936 -16.71153,-6.85397 z"
+       sodipodi:nodetypes="cccc" />
     <path
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
        id="path212"
-       style="background-color:rgb(255, 255, 255);fill:none;stroke:rgb(0, 0, 0);stroke-width:1;stroke-linecap:round"
-       d="M628.5282315627744,24.8479656623427L628.5282315627744,47.2717573470922M628.5282315627744,47.2717573470922L622.8308678514746,52.736367144753395M628.5282315627744,24.8479656623427L606.1193328365244,23.45861271207311M606.1193328365244,23.45861271207311L600.4219691252247,28.9232225097343M387.49229552427346,-107.60927702951777L409.90119425052336,-106.2199240792482" />
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round"
+       d="m 387.4923,-107.60928 22.40889,1.38936"
+       sodipodi:nodetypes="cc" />
     <path
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
        id="path214"
-       style="background-color:rgb(255, 255, 255);fill:rgb(238, 238, 238);fill-opacity:0.4"
-       d="M516.366031050999,-88.40721331331478L516.366031050999,158.25450447453724L522.0633947622987,-93.871823110976zM628.5282315627743,24.84796566234269L628.5282315627743,47.2717573470922L606.1193328365244,23.4586127120731z" />
+       style="fill:#eeeeee;fill-opacity:0.4"
+       d="M 516.36603,-88.407213 V 158.2545 l 5.69736,-252.126323 z"
+       sodipodi:nodetypes="cccc" />
     <path
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
@@ -1289,13 +1301,6 @@
        id="path216"
        style="background-color:rgb(255, 255, 255);fill:none;stroke:rgb(0, 0, 0);stroke-width:1;stroke-linecap:round"
        d="M522.0633947622987,-93.871823110976L499.6544960360488,-95.26117606124556M499.6544960360488,-95.26117606124556L493.95713232474907,-89.79656626358435" />
-    <path
-       inkscape:export-ydpi="185.7"
-       inkscape:export-xdpi="185.7"
-       inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
-       id="path218"
-       style="background-color:rgb(255, 255, 255);fill:rgb(238, 238, 238);fill-opacity:0.4"
-       d="M600.4219691252248,51.3470141944838L606.1193328365244,45.8824043968226L628.5282315627743,47.2717573470922z" />
     <path
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
@@ -1308,15 +1313,9 @@
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
        id="path222"
-       style="background-color:rgb(255, 255, 255);fill:rgb(238, 238, 238);fill-opacity:0.4"
-       d="M493.9571323247491,-89.79656626358438L493.9571323247491,156.86515152426765L516.366031050999,-88.40721331331478zM606.1193328365244,23.4586127120731L606.1193328365244,45.8824043968226L600.4219691252248,28.92322250973429z" />
-    <path
-       inkscape:export-ydpi="185.7"
-       inkscape:export-xdpi="185.7"
-       inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
-       id="path224"
-       style="background-color:rgb(255, 255, 255);fill:none;stroke:rgb(0, 0, 0);stroke-width:1;stroke-linecap:round"
-       d="M628.5282315627744,24.8479656623427L622.8308678514746,30.312575460003888" />
+       style="fill:#eeeeee;fill-opacity:0.4"
+       d="M 493.95713,-89.796566 V 156.86515 l 22.4089,-245.272363 z"
+       sodipodi:nodetypes="cccc" />
     <path
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
@@ -1336,48 +1335,31 @@
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
        id="path230"
-       style="background-color:rgb(255, 255, 255);fill:rgb(238, 238, 238);fill-opacity:0.4"
-       d="M622.8308678514746,52.73636714475339L628.5282315627743,47.2717573470922L628.5282315627743,24.84796566234269zM606.1193328365244,45.8824043968226L600.4219691252248,51.3470141944838L600.4219691252248,28.92322250973429zM622.8308678514746,30.31257546000388L628.5282315627743,24.84796566234269L606.1193328365244,23.4586127120731zM622.8308678514746,52.73636714475339L600.4219691252248,51.3470141944838L628.5282315627743,47.2717573470922zM516.366031050999,-88.40721331331478L522.0633947622987,-93.871823110976L499.6544960360488,-95.26117606124559z" />
-    <path
-       inkscape:export-ydpi="185.7"
-       inkscape:export-xdpi="185.7"
-       inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
-       id="path232"
-       style="background-color:rgb(255, 255, 255);fill:none;stroke:rgb(0, 0, 0);stroke-width:1;stroke-linecap:round"
-       d="M600.4219691252247,28.9232225097343L600.4219691252247,51.3470141944838M600.4219691252247,51.3470141944838L622.8308678514746,52.736367144753395" />
+       style="fill:#eeeeee;fill-opacity:0.4"
+       d="m 516.36603,-88.407213 5.69736,-5.46461 -22.40889,-1.389353 z"
+       sodipodi:nodetypes="cccc" />
     <path
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
        id="path234"
-       style="background-color:rgb(255, 255, 255);fill:rgb(238, 238, 238);fill-opacity:0.4"
-       d="M600.4219691252248,28.92322250973429L622.8308678514746,30.31257546000388L606.1193328365244,23.4586127120731zM622.8308678514746,30.31257546000388L622.8308678514746,52.73636714475339L628.5282315627743,24.84796566234269zM493.9571323247491,-89.79656626358438L516.366031050999,-88.40721331331478L499.6544960360488,-95.26117606124559z" />
-    <path
-       inkscape:export-ydpi="185.7"
-       inkscape:export-xdpi="185.7"
-       inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
-       id="path236"
-       style="background-color:rgb(255, 255, 255);fill:none;stroke:rgb(0, 0, 0);stroke-width:1;stroke-linecap:round"
-       d="M622.8308678514746,30.312575460003888L622.8308678514746,52.736367144753395" />
-    <path
-       inkscape:export-ydpi="185.7"
-       inkscape:export-xdpi="185.7"
-       inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
-       id="path238"
-       style="background-color:rgb(255, 255, 255);fill:rgb(238, 238, 238);fill-opacity:0.4"
-       d="M600.4219691252248,51.3470141944838L622.8308678514746,52.73636714475339L622.8308678514746,30.31257546000388zM600.4219691252248,28.92322250973429L600.4219691252248,51.3470141944838L622.8308678514746,30.31257546000388z" />
+       style="fill:#eeeeee;fill-opacity:0.4"
+       d="m 493.95713,-89.796566 22.4089,1.389353 -16.71153,-6.853963 z"
+       sodipodi:nodetypes="cccc" />
     <path
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
        inkscape:export-filename="C:\Users\nfberthusen\Desktop\nn.png"
        id="path240"
-       style="background-color:rgb(255, 255, 255);fill:none;stroke:rgb(0, 0, 0);stroke-width:1;stroke-linecap:round"
-       d="M600.4219691252247,28.9232225097343L622.8308678514746,30.312575460003888M493.95713232474907,-89.79656626358435L516.366031050999,-88.40721331331478" />
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round"
+       d="m 493.95713,-89.796566 22.4089,1.389353"
+       sodipodi:nodetypes="cc" />
   </g>
   <g
      inkscape:label="editing"
      id="layer11"
-     inkscape:groupmode="layer">
+     inkscape:groupmode="layer"
+     style="display:inline">
     <path
        inkscape:export-ydpi="185.7"
        inkscape:export-xdpi="185.7"
@@ -1399,5 +1381,65 @@
        id="path4477"
        d="M 296.2346,71.38553 V -13.9898 l 21.6919,-20.80571 v 85.37534 l -21.6919,20.8057"
        style="fill:#eeeeee;fill-opacity:0.4;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <g
+       id="g1331"
+       transform="matrix(0.87756446,0,0,0.8951159,312.84316,12.847104)"
+       style="stroke-width:1.12829"
+       inkscape:export-xdpi="185.7"
+       inkscape:export-ydpi="185.7">
+      <path
+         id="path1227"
+         style="fill:none;stroke:#000000;stroke-width:1.12829;stroke-linecap:round"
+         d="m 361.7501,67.010797 -26.52257,-1.890006 m 0,-89.338286 v 89.338286 m 0,0 -7.94775,6.30717" />
+      <path
+         id="path1235"
+         style="fill:none;stroke:#000000;stroke-width:1.12829;stroke-linecap:round"
+         d="m 361.7501,-22.327489 v 89.338286 m 0,0 -7.94775,6.307169" />
+      <path
+         id="path1237"
+         style="fill:#eeeeee;fill-opacity:0.4;stroke-width:1.12829"
+         d="m 361.7501,67.010797 -26.52257,-1.890006 v -89.338286 z m -34.47032,4.417164 7.94775,-6.30717 26.52257,1.890006 z" />
+      <path
+         id="path1249"
+         style="fill:#eeeeee;fill-opacity:0.4;stroke-width:1.12829"
+         d="M 353.80235,73.317966 327.27978,71.427961 361.7501,67.010797 Z" />
+      <path
+         id="path1253"
+         style="fill:#eeeeee;fill-opacity:0.4;stroke-width:1.12829"
+         d="m 335.22753,-24.217495 v 89.338286 l -7.94775,-83.031116 z m 18.57482,97.535461 7.94775,-6.307169 v -89.338286 z m -18.57482,-8.197175 -7.94775,6.30717 v -89.338286 z" />
+      <path
+         id="path1255"
+         style="fill:none;stroke:#000000;stroke-width:1.12829;stroke-linecap:round"
+         d="m 327.27978,-17.910325 v 89.338286 m 0,0 26.52257,1.890005" />
+      <path
+         id="path1259"
+         style="fill:none;stroke:#000000;stroke-width:1.12829;stroke-linecap:round"
+         d="m 361.7501,-22.327489 -7.94775,6.30717 m 0,0 v 89.338285" />
+      <path
+         id="path1261"
+         style="fill:#eeeeee;fill-opacity:0.4;stroke-width:1.12829"
+         d="m 353.80235,-16.020319 7.94775,-6.30717 -26.52257,-1.890006 z m -26.52257,87.44828 26.52257,1.890005 v -89.338285 z m 26.52257,-87.44828 v 89.338285 l 7.94775,-95.645455 z"
+         sodipodi:nodetypes="cccccccccccc" />
+      <path
+         id="path1265"
+         style="fill:#eeeeee;fill-opacity:0.4;stroke-width:1.12829"
+         d="m 327.27978,-17.910325 26.52257,1.890006 -18.57482,-8.197176 z m 0,0 v 89.338286 l 26.52257,-87.44828 z" />
+      <path
+         id="path1267"
+         style="fill:none;stroke:#000000;stroke-width:1.12829;stroke-linecap:round"
+         d="m 327.27978,-17.910325 26.52257,1.890006" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1.12829px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 327.2797,-17.910322 7.94779,-6.307161"
+         id="path1353" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1.12829px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 335.22749,-24.217483 26.52261,1.890001"
+         id="path1357" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1.12829px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 353.80231,-16.02031 7.94779,-6.307161"
+         id="path1361" />
+    </g>
   </g>
 </svg>
