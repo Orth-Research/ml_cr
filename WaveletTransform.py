@@ -18,7 +18,12 @@ def cwt(data, channels=6, wavelet='morl'):
     """
     shape = data.shape[1]//channels
     size = data.shape[0]
-    scales = np.arange(1, shape+1)
+    scales = [1.09051, 1.18921, 1.29684, 1.41421, 1.54221, 1.68179, 1.83401, 2., \
+		2.18102, 2.37841, 2.59368, 2.82843, 3.08442, 3.36359, 3.66802, 4., \
+		4.36203, 4.75683, 5.18736, 5.65685, 6.16884, 6.72717, 7.33603, 8., \
+		8.72406, 9.51366, 10.3747, 11.3137, 12.3377, 13.4543, 14.6721, 16., \
+		17.4481, 19.0273, 20.7494, 22.6274, 24.6754, 26.9087, 29.3441, 32., \
+		34.8962, 38.0546, 41.4989, 45.2548, 49.3507, 53.8174, 58.6883, 64.]
 
     data_cwt = np.ndarray(shape=(size, shape, shape, channels), dtype=np.float16)
     for i in range(size):
@@ -37,8 +42,9 @@ def cwt(data, channels=6, wavelet='morl'):
 if __name__=='__main__':
 	group = 'Oh'
 	J = '4'
+	w_sign = -1
 	
-	dir = '/TrainingData_{}_{}/'.format(group, J)
+	dir = './TrainingData_{}_{}/TrainingData_{}_{}_{}/'.format(group, J, group, J, w_sign)
 	data = dir + 'generated_data_{}.csv'
 	targets = dir + 'generated_targets_{}.csv'
 	

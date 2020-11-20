@@ -291,7 +291,7 @@ class training_data:
         Write training data to file
         Parameters: 
             Stevens_range: array of ranges for Stevens parameters [[x0_min, x0_max], [x1_min, x1_max], ...] 
-	    W_sign: sign of W for Stevens parameters
+        W_sign: sign of W for Stevens parameters
         Optional parameters: 
             cV_T_range: [T_min, T_max, T_steps] array for specific heat calculation
             susc_T_range: [T_min, T_max, T_steps] array for susceptibility calculation
@@ -341,36 +341,38 @@ class training_data:
             susc_data_all.append(susc_data)
             mag_data_all.append(mag_data)
         return stevens_params_all, cV_data_all, susc_data_all, mag_data_all
-		
+        
 if __name__=='__main__':
-	num_training_examples = [1000, 2000, 30000, 100000]
-	for ex in num_training_examples:
-		J = 15/1 #4 #15/2
-		L = 6 #5 #6
-		S = 3/2 #1 #3/2
-		pg = 'C4v'
-		B_directions= [[1,0,0],[0,0,1]] #[[1,1,1]]
-		B_temps = 3
-		W_sign = -1
-		Stevens_range = [[0.5, 50],[-1,1],[-1,1],[-1,1],[-1,1]]
-		# 124 seed for positive
-		# 122 seed for negative
-		td = training_data(pg, ex, 123+W_sign, J, L, S, B_directions)
-		out = td.output_all_data(Stevens_range=Stevens_range, W_sign=W_sign, cV_T_range = [1, 300, 64], susc_T_range = [1, 300, 64], mag_T_range = [1, 300, B_temps], mag_B_range = [0, 10, 64])
-		#out[0] # Stevens parameters
-		#out[1] # specific heat [[T_i, cV^(0)_i], [T_i, cV^(1)_i], ..., [T_i, cV^(N_t-1)_i] ], i = 1, ..., T_steps
-		#out[2] # susceptibility [[T_i, susc^(0)_{0,i}, susc^{(0)_{1,i}, ..., susc^(0)_{B_direction-1,i}}], ...], i = 1, ..., T_steps
-		#out[3] # magnetization [[[B_j, T_i, M^(0),{0,i}, M^(0)_{1,i,j}, ..., M^(0)_{B_direction-1,i,j}], ... ]], j = 1, .., B_steps; i = 1, ..., T_steps
-	
-		targets_df = pd.DataFrame(out[0])
-		data_arr = np.array(out[1])[:,:,1]
-		for i in range(len(B_directions)): # size of B_directions
-			data_arr = np.concatenate([data_arr, np.array(out[2])[:,:,i+1]], axis=1)
-		for i in range(B_temps): # T step for magnetization
-			for j in range(len(B_directions)): # size of B_directions
-				data_arr = np.concatenate([data_arr, np.array(out[3])[:,:,i,j+2]], axis=1)
-		data_df = pd.DataFrame(data_arr)
-		targets_df.to_csv('TrainingData_{}_{}/TrainingData_{}_{}_{}/generated_targets_{}.csv'.format(pg, J, pg, J, W_sign, ex), header=None, index=None)
-		data_df.to_csv('TrainingData_{}_{}/TrainingData_{}_{}_{}/generated_data_{}.csv'.format(pg, J, pg, J, W_sign, ex), header=None, index=None)
-
-	
+    num_training_examples = [4000]
+    for ex in num_training_examples:
+        J = 15/2 #4 #15/2
+        L = 6 #5 #6
+        S = 3/2 #1 #3/2
+        pg = 'D3h'
+        B_directions= [[1,0,0],[0,0,1]] #[[1,1,1]]
+        B_temps = 3
+        W_sign = 1
+        Stevens_range = [[0.5, 50],[-1,1],[-1,1],[-1,1]] #,[-1,1]]
+        # 124 seed for positive
+        # 122 seed for negative
+        seed = np.random.randint(100000000)
+        
+        td = training_data(pg, ex, seed, J, L, S, B_directions)
+        out = td.output_all_data(Stevens_range=Stevens_range, W_sign=W_sign, cV_T_range = [1, 300, 64], susc_T_range = [1, 300, 64], mag_T_range = [1, 300, B_temps], mag_B_range = [0, 10, 64])
+        #out[0] # Stevens parameters
+        #out[1] # specific heat [[T_i, cV^(0)_i], [T_i, cV^(1)_i], ..., [T_i, cV^(N_t-1)_i] ], i = 1, ..., T_steps
+        #out[2] # susceptibility [[T_i, susc^(0)_{0,i}, susc^{(0)_{1,i}, ..., susc^(0)_{B_direction-1,i}}], ...], i = 1, ..., T_steps
+        #out[3] # magnetization [[[B_j, T_i, M^(0),{0,i}, M^(0)_{1,i,j}, ..., M^(0)_{B_direction-1,i,j}], ... ]], j = 1, .., B_steps; i = 1, ..., T_steps
+    
+        targets_df = pd.DataFrame(out[0])
+        data_arr = np.array(out[1])[:,:,1]
+        for i in range(len(B_directions)): # size of B_directions
+            data_arr = np.concatenate([data_arr, np.array(out[2])[:,:,i+1]], axis=1)
+        for i in range(B_temps): # T step for magnetization
+            for j in range(len(B_directions)): # size of B_directions
+                data_arr = np.concatenate([data_arr, np.array(out[3])[:,:,i,j+2]], axis=1)
+        data_df = pd.DataFrame(data_arr)
+        targets_df.to_csv('TrainingData_{}_{}/TrainingData_{}_{}_{}/generated_targets_{}.csv'.format(pg, J, pg, J, W_sign, ex), header=None, index=None)
+        data_df.to_csv('TrainingData_{}_{}/TrainingData_{}_{}_{}/generated_data_{}.csv'.format(pg, J, pg, J, W_sign, ex), header=None, index=None)
+    
+    
