@@ -1,11 +1,11 @@
 # Crystal-Field-Machine-Learning
 
-This repository holds the code for the paper Learning crystal field parameters using convolutional neural networks authored by Noah F. Berthusen, Yuriy Sizyuk, Mathias S. Scheurer, and Peter P. Orth. This work aimed to use a two-dimensional convolutional neural network (CNN) to determine the Stevens parameters for a given angular momentum J and crystal field symmetry group G from thermodynamic observables.
+This repository holds the code for the paper "Learning crystal field parameters using convolutional neural networks" authored by Noah F. Berthusen, Yuriy Sizyuk, Mathias S. Scheurer, and Peter P. Orth. This work presents a deep machine learning algorithm that uses a two-dimensional convolutional neural network (CNN) to determine crystal field Stevens parameters from thermodynamic observables, given a total angular momentum J of the ground state multiplet and crystal field site symmetry group G.
 
 This document will guide you through installing and running the code. 
 
 ## Training Pipeline
-The network can be trained to predict the Stevens parameters for a given point group symmetry. Training the network to predict the coefficients for experimental examples can also be one. For both, a sizeable amount of training data needs to be generated.
+The network can be trained to predict the Stevens parameters for a given point group symmetry. Training the network to predict the coefficients for experimental examples can also be done. For both, a sizeable amount of training data needs to be generated.
 
 1. Download repository and update your python environment.
    * If you are familiar with git, clone the repository with the following command:
