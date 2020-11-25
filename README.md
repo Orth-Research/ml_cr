@@ -15,7 +15,7 @@ The network can be trained to predict the Stevens parameters for a given point g
      Alternatively, on the top right page of this page, download the zipped version of the repository and unpack at your desired place.
 
 2. Prepare your data
-    * Specify all of the required data in ```DataGeneration.py```. This includes ranges for specific heat, susceptibility, and magnetization, high-symmetry direction, and of course point group symmetry and J, L, and S.
+    * Specify all of the required data in ```DataGeneration.py```. This includes temperature and magnetic field ranges for specific heat, susceptibility, and magnetization, magnetic field lattice directions, and of course the point group symmetry G and the angular momentum quantum numbers J (total angular momentum), L (total orbital angular momentum), and S (total spin) of the ground state multiplet.
     * Generate training data in amounts suitable to be trained on.
     * Specify the input and output directories for ```WaveletTransform.py``` to transform the 1D thermodynamic observable data into the 2D scaleogram format that is needed for the CNN architecture. 
 
