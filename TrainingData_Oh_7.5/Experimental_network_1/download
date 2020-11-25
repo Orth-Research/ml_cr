@@ -1,3 +1,0 @@
-#!/usr/bin/bash
-
-scp nfb1@frankenstein.cmpgroup.ameslab.gov:'/home/nfb1/stevens-ml/TrainingData_Oh_7.5/TrainingData_Oh_7.5_1/generated_*_1000.csv /home/nfb1/stevens-ml/TrainingData_Oh_7.5/TrainingData_Oh_7.5_1/generated_*_2000.csv /home/nfb1/stevens-ml/TrainingData_Oh_7.5/TrainingData_Oh_7.5_1/*.npy /home/nfb1/stevens-ml/TrainingData_Oh_7.5/TrainingData_Oh_7.5_1/Oh_7.5_1_model.h5' .
