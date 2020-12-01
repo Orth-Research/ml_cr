@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 from numpy import savez_compressed
 import pywt
+import os
+import argparse
 
 def cwt(data, channels=6, wavelet='morl'):
     """
@@ -40,53 +42,34 @@ def cwt(data, channels=6, wavelet='morl'):
 	
 	
 if __name__=='__main__':
-	group = 'Oh'
-	J = '4'
-	w_sign = -1
+	parser = argparse.ArgumentParser()
+    # Command line arguments
+	parser.add_argument("input_dir", type=str, help="Input directory")
+	parser.add_argument("output_dir", type=str, help="Ouptut directory")
+	parser.add_argument("-s", "--save_mean", type=bool, default=True, help="True to save mean and std for x, y")
 	
-	dir = './TrainingData_{}_{}/TrainingData_{}_{}_{}/'.format(group, J, group, J, w_sign)
-	data = dir + 'generated_data_{}.csv'
-	targets = dir + 'generated_targets_{}.csv'
+	args = parser.parse_args()
+	INPUT_DIR = args.train_dir
+	OUTPUT_DIR = args.output_dir
+	SAVE = args.save_mean
 	
-	x_train = np.array(pd.read_csv(data.format(100000), header=None))
-	y_train = np.array(pd.read_csv(targets.format(100000), header=None))
-	channels = len(x_train[0])//64
+	x = np.array(pd.read_csv(os.path.join(INPUT_DIR, "generated_data.csv"), header=None))
+	y = np.array(pd.read_csv(os.path.join(INPUT_DIR, "generated_targets.csv"), header=None))
+	channels = len(x[0])//64
 
-	x_test = np.array(pd.read_csv(data.format(30000), header=None))
-	y_test = np.array(pd.read_csv(targets.format(30000), header=None))
-	
-	x_val = x_test[:15000]
-	x_test = x_test[15000:]
-	y_val = y_test[:15000]
-	y_test = y_test[15000:]
-
-	x_val = cwt(x_val, channels=channels)
-	x_train = cwt(x_train, channels=channels)
-	x_test = cwt(x_test, channels=channels)
+	x = cwt(x, channels=channels)
 
 	# center the image data for each channel (mean of zero)
-	x_mean = np.mean(x_train, axis=(0,1,2), keepdims=True)
-	#x_train -= x_mean
-	#x_val -= x_mean
-	#x_test -= x_mean
+	x_mean = np.mean(x, axis=(0,1,2), keepdims=True)
 	
 	# normalize each of the targets (mean of zero and std of one)
-	y_mean = np.mean(y_train, axis=(0,), keepdims=True)
-	#y_train -= y_mean
-	#y_val -= y_mean
-	#y_test -= y_mean
-	y_std = np.std(y_train, axis=(0,), keepdims=True)
-	#y_train /= y_std
-	#y_val /= y_std
-	#y_test /= y_std
+	y_mean = np.mean(y, axis=(0,), keepdims=True)
+	y_std = np.std(y, axis=(0,), keepdims=True)
+
+	if (SAVE):
+		np.save(os.path.join(OUTPUT_DIR, "x_mean.npy"), x_mean)
+		np.save(os.path.join(OUTPUT_DIR, "y_mean.npy"), y_mean)
+		np.save(os.path.join(OUTPUT_DIR, "y_std.npy"), y_std)
 	
-	np.save(dir + 'x_mean_{}_{}.npy'.format(group, J), x_mean)
-	np.save(dir + 'y_mean_{}_{}.npy'.format(group, J), y_mean)
-	np.save(dir + 'y_std_{}_{}.npy'.format(group, J), y_std)
-	
-	savez_compressed(dir + 'x_train_{}_{}.npz'.format(group, J), x_train)
-	savez_compressed(dir + 'x_test_{}_{}.npz'.format(group, J), x_test)
-	savez_compressed(dir + 'x_val_{}_{}.npz'.format(group, J), x_val)
-	savez_compressed(dir + 'y_train_{}_{}.npz'.format(group, J), y_train)
-	savez_compressed(dir + 'y_test_{}_{}.npz'.format(group, J), y_test)
-	savez_compressed(dir + 'y_val_{}_{}.npz'.format(group, J), y_val)
+	savez_compressed(os.path.join(OUTPUT_DIR, "generated_data_cwt.npz"), x)
+	savez_compressed(os.path.join(OUTPUT_DIR, "generated_targets_cwt.npz"), y)

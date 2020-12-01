@@ -1,11 +1,12 @@
+from ast import parse
 import numpy as np
 import pandas as pd
 from scipy import linalg as LA
 from numpy.random import default_rng
 import ham_cr
+import os
+import argparse
 
-# generate a complete data set of {cV, \chi_z, M_z} for one set of random Stevens parameters
-# Comment: we could think to make a class that generates a full set of N training data sets (from N random Stevens parameters - then N would be given to the class). Here, the random drawing of Stevens parameters happens outside the class. 
 
 class training_data:
     """
@@ -60,22 +61,23 @@ class training_data:
 
     ####### Draw random Stevens paramaters #######################################
 
-    def generate_random_stevens(self, range, W_sign):
+    def generate_random_stevens(self, W_sign):
         """
         Generated random values for Stevens parameters for given point group. 
 
         Parameters: 
-            ppoint_group: string of point group in Schoenflies notation
-            range: array of ranges for Stevens parameters [[x0_min, x0_max], [x1_min, x1_max], ...] 
+            point_group: string of point group in Schoenflies notation
         Returns: 
             stevens_params: array with random instances of Stevens parameters
         """
         # TO DO: implement error messages if range is not correct: in particular, it will get stuck if the range of the x_1, ..., x_{N-1} is not given by [-1,1]
         if self.point_group == 'Oh': # two Stevens parameters for m-3m = Oh point group
+            range = [[0.5, 50],[-1,1]]
             x0 = (range[0][0] + (range[0][1] - range[0][0])*self.rg.random())*W_sign
             x1 = range[1][0] + (range[1][1] - range[1][0])*self.rg.random()
             stevens_params = np.array([x0, x1])
         elif self.point_group == "C4v": # 5 Stevens parameters for 4mm = C4v point group
+            range = [[0.5, 50],[-1,1],[-1,1],[-1,1],[-1,1]]
             stevens_params = np.array([1.,1.,1.,1.,1., 0.])
             while (np.sum(np.abs(stevens_params)) - np.abs(stevens_params[0]) - np.abs(stevens_params[-1]) > 1):
                 stevens_params[0] = (range[0][0] + (range[0][1] - range[0][0])*self.rg.random())*W_sign
@@ -85,6 +87,7 @@ class training_data:
                 stevens_params[4] = range[4][0] + (range[4][1] - range[4][0])*self.rg.random()
             stevens_params[5] = 2.*self.rg.random() - 1. # only sign of x5 matters as size is determined by x1, .., x4. 
         elif self.point_group == "D3h": # 4 Stevens parameters for -6m2 = D3h point group
+            range = [[0.5, 50],[-1,1],[-1,1],[-1,1]]
             stevens_params = np.array([1.,1.,1.,1., 0.])
             while (np.sum(np.abs(stevens_params)) - np.abs(stevens_params[0]) - np.abs(stevens_params[-1]) > 1):
                 stevens_params[0] = (range[0][0] + (range[0][1] - range[0][0])*self.rg.random())*W_sign
@@ -286,12 +289,11 @@ class training_data:
 
     ######## Output training data into files #################
 
-    def output_all_data(self, Stevens_range, W_sign, cV_T_range = [1, 300, 100], susc_T_range = [1, 300, 100], mag_T_range = [1, 300, 4], mag_B_range = [0.5, 10, 20]):
+    def output_all_data(self, W_sign, cV_T_range = [1, 300, 100], susc_T_range = [1, 300, 100], mag_T_range = [1, 300, 4], mag_B_range = [0.5, 10, 20]):
         """
         Write training data to file
         Parameters: 
-            Stevens_range: array of ranges for Stevens parameters [[x0_min, x0_max], [x1_min, x1_max], ...] 
-        W_sign: sign of W for Stevens parameters
+            W_sign: sign of W for Stevens parameters
         Optional parameters: 
             cV_T_range: [T_min, T_max, T_steps] array for specific heat calculation
             susc_T_range: [T_min, T_max, T_steps] array for susceptibility calculation
@@ -309,7 +311,7 @@ class training_data:
         susc_data_all = []
         mag_data_all = []
         for N_t_idx in range(0, self.N_t):
-            stevens_params = self.generate_random_stevens(Stevens_range, W_sign) # draw random Stevens parameters
+            stevens_params = self.generate_random_stevens(W_sign) # draw random Stevens parameters
             stevens_params_all.append(stevens_params) # use a list to store all Stevens parameters. Since different point groups have different number of Stevens parameters, the tuples that are stored have different length. 
             ham_cr = self.ham_cr(stevens_params) # crystal field Hamiltonian for given random Stevens parameters
 
@@ -343,36 +345,59 @@ class training_data:
         return stevens_params_all, cV_data_all, susc_data_all, mag_data_all
         
 if __name__=='__main__':
-    num_training_examples = [4000]
-    for ex in num_training_examples:
-        J = 15/2 #4 #15/2
-        L = 6 #5 #6
-        S = 3/2 #1 #3/2
-        pg = 'D3h'
-        B_directions= [[1,0,0],[0,0,1]] #[[1,1,1]]
-        B_temps = 3
-        W_sign = 1
-        Stevens_range = [[0.5, 50],[-1,1],[-1,1],[-1,1]] #,[-1,1]]
-        # 124 seed for positive
-        # 122 seed for negative
-        seed = np.random.randint(100000000)
-        
-        td = training_data(pg, ex, seed, J, L, S, B_directions)
-        out = td.output_all_data(Stevens_range=Stevens_range, W_sign=W_sign, cV_T_range = [1, 300, 64], susc_T_range = [1, 300, 64], mag_T_range = [1, 300, B_temps], mag_B_range = [0, 10, 64])
-        #out[0] # Stevens parameters
-        #out[1] # specific heat [[T_i, cV^(0)_i], [T_i, cV^(1)_i], ..., [T_i, cV^(N_t-1)_i] ], i = 1, ..., T_steps
-        #out[2] # susceptibility [[T_i, susc^(0)_{0,i}, susc^{(0)_{1,i}, ..., susc^(0)_{B_direction-1,i}}], ...], i = 1, ..., T_steps
-        #out[3] # magnetization [[[B_j, T_i, M^(0),{0,i}, M^(0)_{1,i,j}, ..., M^(0)_{B_direction-1,i,j}], ... ]], j = 1, .., B_steps; i = 1, ..., T_steps
+    parser = argparse.ArgumentParser()
+    # Command line arguments
+    parser.add_argument("-pg", "--pg", type=str, default="Oh", help="Crystal field point group")
+    parser.add_argument("-J", "--J", type=int, default=4, help="Total angular momentum")
+    parser.add_argument("-L", "--L", type=int, default=5, help="Orbital angular momentum")
+    parser.add_argument("-S", "--S", type=int, default=1, help="Spin angular momentum")
+    parser.add_argument("-b", "--b_dirs", type=list, default=[[1,0,0],[0,0,1]], help="Magnetic field directions")
+    parser.add_argument("-n", "--num_ex", type=int, default=1000, help="Number of training examples to generate")
+    parser.add_argument("-o", "--output_dir", type=str, default=os.getcwd(), help="Output directory")
+    parser.add_argument("-sd", "--seed", type=int, default=None, help="Seed for random number generator")
+    parser.add_argument("-w", "--w_sign", type=int, default=1, help="Sign of x_0")
+    parser.add_argument("-cV", "--cV_T_range", type=list, default=[1, 300, 64], help="[T_min, T_max, T_steps] array for specific heat calculation")
+    parser.add_argument("-su", "--susc_T_range", type=list, default=[1, 300, 64], help="[T_min, T_max, T_steps] array for susceptibility calculation")
+    parser.add_argument("-mT", "--mag_T_range", type=list, default=[1, 300, 3], help="[T_min, T_max, T_steps] array for magnetization calculation")
+    parser.add_argument("-mB", "--mag_B_range", type=list, default=[0, 10, 64], help="[B_min, B_max, B_steps], where B_steps is the number of B points within range [B_min, B_max]")
+
+    args = parser.parse_args()
+    POINT_GROUP = args.pg
+    B_DIRECTIONS = args.b_dirs
+    W_SIGN = args.w_sign
+    SEED = args.seed
+    TRAINING_EXAMPLES = args.num_ex
+    J = args.J #4 #15/2
+    L = args.L #5 #6
+    S = args.S #1 #3/2
+    OUTPUT_DIR = args.output_dir
+    CV_T_RANGE = args.cV_T_range
+    SUSC_T_RANGE = args.susc_T_range
+    MAG_T_RANGE = args.mag_T_range
+    MAG_B_RANGE = args.mag_B_range
     
-        targets_df = pd.DataFrame(out[0])
-        data_arr = np.array(out[1])[:,:,1]
-        for i in range(len(B_directions)): # size of B_directions
-            data_arr = np.concatenate([data_arr, np.array(out[2])[:,:,i+1]], axis=1)
-        for i in range(B_temps): # T step for magnetization
-            for j in range(len(B_directions)): # size of B_directions
-                data_arr = np.concatenate([data_arr, np.array(out[3])[:,:,i,j+2]], axis=1)
-        data_df = pd.DataFrame(data_arr)
-        targets_df.to_csv('TrainingData_{}_{}/TrainingData_{}_{}_{}/generated_targets_{}.csv'.format(pg, J, pg, J, W_sign, ex), header=None, index=None)
-        data_df.to_csv('TrainingData_{}_{}/TrainingData_{}_{}_{}/generated_data_{}.csv'.format(pg, J, pg, J, W_sign, ex), header=None, index=None)
+    td = training_data(POINT_GROUP, TRAINING_EXAMPLES, SEED, J, L, S, B_DIRECTIONS)
+    out = td.output_all_data(
+        W_sign = W_SIGN, 
+        cV_T_range = CV_T_RANGE, 
+        susc_T_range = SUSC_T_RANGE, 
+        mag_T_range = MAG_T_RANGE, 
+        mag_B_range = MAG_B_RANGE
+    )
+    #out[0] # Stevens parameters
+    #out[1] # specific heat [[T_i, cV^(0)_i], [T_i, cV^(1)_i], ..., [T_i, cV^(N_t-1)_i] ], i = 1, ..., T_steps
+    #out[2] # susceptibility [[T_i, susc^(0)_{0,i}, susc^{(0)_{1,i}, ..., susc^(0)_{B_direction-1,i}}], ...], i = 1, ..., T_steps
+    #out[3] # magnetization [[[B_j, T_i, M^(0),{0,i}, M^(0)_{1,i,j}, ..., M^(0)_{B_direction-1,i,j}], ... ]], j = 1, .., B_steps; i = 1, ..., T_steps
+
+    targets_df = pd.DataFrame(out[0])
+    data_arr = np.array(out[1])[:,:,1]
+    for i in range(len(B_DIRECTIONS)): # size of B_directions
+        data_arr = np.concatenate([data_arr, np.array(out[2])[:,:,i+1]], axis=1)
+    for i in range(MAG_T_RANGE[2]): # T step for magnetization
+        for j in range(len(B_DIRECTIONS)): # size of B_directions
+            data_arr = np.concatenate([data_arr, np.array(out[3])[:,:,i,j+2]], axis=1)
+    data_df = pd.DataFrame(data_arr)
+    targets_df.to_csv(os.path.join(OUTPUT_DIR, "generated_targets.csv"), header=None, index=None)
+    data_df.to_csv(os.path.join(OUTPUT_DIR, "generated_data.csv"), header=None, index=None)
     
     

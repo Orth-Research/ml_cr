@@ -1,16 +1,12 @@
-from keras.models import Sequential
-from keras import optimizers
 from keras import models
 from keras import layers
-from keras.layers import BatchNormalization
 from keras.layers import Dropout
 
 import tensorflow as tf
 import numpy as np
-import pandas as pd
 import pywt
-from sklearn import metrics
-from sklearn.metrics import classification_report
+import os
+import argparse
 
 
 def cwt(data, channels=6, wavelet='morl'):
@@ -89,87 +85,60 @@ def build_model(channels, outputs):
 	print(model.summary())	
 	model.compile(optimizer='adam', loss='mse', metrics=['mae'])
 	return model
-
-class new_callback(tf.keras.callbacks.Callback):
-	def on_epoch_end(self, epoch, logs={}):
-		if (logs.get('val_mae')<0.26):
-			self.model.stop_training = True
 	
 if __name__=='__main__':
-	group = 'D3h'
-	J = '4'
-	W_sign = -1
+	parser = argparse.ArgumentParser()
+    # Command line arguments
+	parser.add_argument("train_dir", type=str, help="Train directory")
+	parser.add_argument("val_dir", type=str, help="Validation directory")
+	parser.add_argument("output_dir", type=str, help="Ouptut directory")
+	parser.add_argument("-e", "--epochs", type=int, default=100, help="Epochs")
+	parser.add_argument("-b", "--batch_size", type=int, default=64, help="Batch size")
+	parser.add_argument("-s", "--early_stop", type=float, default=0.0, help="Stop training once val MAE falls below")
 	
-	dir = './TrainingData_{}_{}/TrainingData_{}_{}_{}/'.format(group, J, group, J, W_sign)
-	data = dir + 'generated_data_{}.csv'
-	targets = dir + 'generated_targets_{}.csv'
+	args = parser.parse_args()
+	TRAIN_DIR = args.train_dir
+	VAL_DIR = args.val_dir
+	OUTPUT_DIR = args.output_dir
+	NUM_EPOCHS = args.epochs
+	BATCH_SIZE = args.batch_size
+	EARLY_STOP = args.early_stop
 	
-	x_train = np.load(dir + 'x_train_{}_{}.npz'.format(group, J))['arr_0']
-	x_test = np.load(dir + 'x_test_{}_{}.npz'.format(group, J))['arr_0']
-	x_val = np.load(dir + 'x_val_{}_{}.npz'.format(group, J))['arr_0']
+	x_train = np.load(os.path.join(TRAIN_DIR, "generated_data_cwt.npz"))['arr_0']
+	x_val = np.load(os.path.join(VAL_DIR, "generated_data_cwt.npz"))['arr_0']
 	
-	y_train = np.load(dir + 'y_train_{}_{}.npz'.format(group, J))['arr_0']
-	y_test = np.load(dir + 'y_test_{}_{}.npz'.format(group, J))['arr_0']
-	y_val = np.load(dir + 'y_val_{}_{}.npz'.format(group, J))['arr_0']
+	y_train = np.load(os.path.join(TRAIN_DIR, "generated_targets_cwt.npz"))['arr_0']
+	y_val = np.load(os.path.join(VAL_DIR, "generated_targets_cwt.npz"))['arr_0']
 	
-	x_mean = np.load(dir + 'x_mean_{}_{}.npy'.format(group, J))
-	y_mean = np.load(dir + 'y_mean_{}_{}.npy'.format(group, J))
-	y_std = np.load(dir + 'y_std_{}_{}.npy'.format(group, J))
+	x_mean = np.load(os.path.join(TRAIN_DIR, "x_mean.npy"))
+	y_mean = np.load(os.path.join(TRAIN_DIR, "y_mean.npy"))
+	y_std = np.load(os.path.join(TRAIN_DIR, "y_std.npy"))
 	
 	# center the image data for each channel (mean of zero)
 	x_train -= x_mean
 	x_val -= x_mean
-	x_test -= x_mean
 	
 	# normalize each of the targets (mean of zero and std of one)
 	y_train -= y_mean
 	y_val -= y_mean
-	y_test -= y_mean
 	y_train /= y_std
 	y_val /= y_std
-	y_test /= y_std
 	
 	model = build_model(x_train.shape[3], len(y_train[0]))
+
+	class new_callback(tf.keras.callbacks.Callback):
+		def on_epoch_end(self, epoch, logs={}):
+			if (logs.get('val_mae') < EARLY_STOP):
+				self.model.stop_training = True
 	callbacks = new_callback()
 
 	history = model.fit(x_train,
 		y_train,
-		epochs=100,
-		batch_size=64,
+		epochs=NUM_EPOCHS,
+		batch_size=BATCH_SIZE,
 		validation_data=(x_val, y_val),
 		verbose=2,
-                callbacks=[callbacks])
-		
-		
-	y_real = np.array(pd.read_csv(targets.format(1000), header=None))
-	x_real = np.array(pd.read_csv(data.format(1000), header=None))
+		callbacks=[callbacks]
+	)
 	
-	x_real = cwt(x_real, channels=x_train.shape[3])
-	x_real -= x_mean
-	y_pred = model.predict(x_real)
-	y_pred = (y_pred * y_std) + y_mean
-	
-	with open(dir + 'results_{}_{}.txt'.format(group, J), 'w') as text_file:
-		print(model.summary(), file=text_file)
-		
-		print(model.evaluate(x_test, y_test, verbose=0), file=text_file)
-		
-		if (group == 'Oh'):
-			num_coeff = len(y_pred[0])
-		else:
-			num_coeff = len(y_pred[0])-1		
-
-		for i in range(num_coeff):
-			print('Mean absolute error: {}'.format(metrics.mean_absolute_error(y_real[:,i], y_pred[:,i])), file=text_file)
-			print('Mean squared error: {}'.format(metrics.mean_squared_error(y_real[:,i], y_pred[:,i])), file=text_file)
-			print('Explained varience score: {}'.format(metrics.explained_variance_score(y_real[:,i], y_pred[:,i])), file=text_file)
-			print('r^2 score: {}'.format(metrics.r2_score(y_real[:,i], y_pred[:,i])), file=text_file)
-			print('', file=text_file)
-		
-		if (group != 'Oh'):
-			last_real = [0 if i < 0 else 1 for i in y_real[:,len(y_pred[0])-1]]
-			last_pred = [0 if i < 0 else 1 for i in y_pred[:,len(y_pred[0])-1]]
-			report = classification_report(last_real, last_pred)
-			print(report, file=text_file)	
-	
-	model.save(dir + '{}_{}_{}_model.h5'.format(group, J, W_sign))
+	model.save(os.path.join(OUTPUT_DIR, "model.h5"))
