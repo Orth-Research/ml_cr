@@ -3020,3 +3020,47 @@ def ham_cr_PG_D3h_J_4_5(x0, x1, x2, x3, x4):
 	ham[9][8] = 0.
 	ham[9][9] = 5.222329678670935*x0*x1 + 3.365809164030446*x0*x2 + 1.1677484162422844*x0*np.abs(1. - 1.*np.abs(x1) - 1.*np.abs(x2) - 1.*np.abs(x3))*np.sign(x4)
 	return ham
+# Module creates crystal field Hamiltonian matrix for point group (PG) C4v and J = 2.5.
+# Number of crystal field variables is 3 (and sign of x3): {x0, x1, x2, sign(x3)}.
+def ham_cr_PG_C4v_J_2_5(x0, x1, x2, x3):
+	J = 2.5
+	dim = int(2*J+1)
+	ham = np.arange(dim*dim, dtype=np.float)
+	ham = ham.reshape(dim,dim)
+	ham[0][0] = 3.273268353539885*x0*x1 + 1.1338934190276815*x0*np.abs(1. - 1.*np.abs(x1) - 1.*np.abs(x2))*np.sign(x3)
+	ham[0][1] = 0.
+	ham[0][2] = 0.
+	ham[0][3] = 0.
+	ham[0][4] = 3.*x0*x2
+	ham[0][5] = 0.
+	ham[1][0] = 0.
+	ham[1][1] = -0.6546536707079771*x0*x1 - 3.401680257083045*x0*np.abs(1. - 1.*np.abs(x1) - 1.*np.abs(x2))*np.sign(x3)
+	ham[1][2] = 0.
+	ham[1][3] = 0.
+	ham[1][4] = 0.
+	ham[1][5] = 3.*x0*x2
+	ham[2][0] = 0.
+	ham[2][1] = 0.
+	ham[2][2] = -2.6186146828319083*x0*x1 + 2.267786838055363*x0*np.abs(1. - 1.*np.abs(x1) - 1.*np.abs(x2))*np.sign(x3)
+	ham[2][3] = 0.
+	ham[2][4] = 0.
+	ham[2][5] = 0.
+	ham[3][0] = 0.
+	ham[3][1] = 0.
+	ham[3][2] = 0.
+	ham[3][3] = -2.6186146828319083*x0*x1 + 2.267786838055363*x0*np.abs(1. - 1.*np.abs(x1) - 1.*np.abs(x2))*np.sign(x3)
+	ham[3][4] = 0.
+	ham[3][5] = 0.
+	ham[4][0] = 3.*x0*x2
+	ham[4][1] = 0.
+	ham[4][2] = 0.
+	ham[4][3] = 0.
+	ham[4][4] = -0.6546536707079771*x0*x1 - 3.401680257083045*x0*np.abs(1. - 1.*np.abs(x1) - 1.*np.abs(x2))*np.sign(x3)
+	ham[4][5] = 0.
+	ham[5][0] = 0.
+	ham[5][1] = 3.*x0*x2
+	ham[5][2] = 0.
+	ham[5][3] = 0.
+	ham[5][4] = 0.
+	ham[5][5] = 3.273268353539885*x0*x1 + 1.1338934190276815*x0*np.abs(1. - 1.*np.abs(x1) - 1.*np.abs(x2))*np.sign(x3)
+	return ham
